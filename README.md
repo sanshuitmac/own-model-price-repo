@@ -1,16 +1,23 @@
 # model-price-repo
 
-Filtered model pricing data for CRS and sub2api projects. Syncs from the upstream [litellm](https://github.com/BerriAI/litellm) pricing file on a schedule, applying configurable prefix filters to keep only the models you actually use.
+Filtered model pricing data for CRS and sub2api projects.
+
+> **This fork is maintained manually.** The scheduled GitHub Actions workflow was
+> removed intentionally so upstream synchronization cannot overwrite local price
+> overrides. Read [Manual pricing overrides](docs/manual-pricing-overrides.md)
+> before changing prices or running the bundled synchronization scripts.
 
 ## How it works
 
-A GitHub Actions workflow runs every 10 minutes (and on manual trigger):
+Sub2API reads the two published files from the `main` branch:
 
-1. Downloads the full `model_prices_and_context_window.json` from litellm
-2. Filters models by the prefix rules in `config.json`
-3. Merges new models into the existing output (additive — never removes)
-4. Applies alias mappings and custom model definitions
-5. Writes the output JSON + SHA-256 hash, commits only if content changed
+1. `model_prices_and_context_window.json` contains the model prices.
+2. `model_prices_and_context_window.sha256` contains the exact SHA-256 of the
+   JSON file and lets consumers detect a change.
+
+There is no active scheduled synchronization in this fork. Price changes are
+made directly in the JSON file, the hash is regenerated, and both files are
+committed together.
 
 ## Configuration
 
@@ -60,6 +67,10 @@ Aliases create copies of an existing model's pricing under a new key:
 If the source model doesn't exist in the filtered data, the alias is skipped with a warning.
 
 ## Running locally
+
+The original synchronization tooling remains in the repository for reference.
+Do not run it for routine maintenance of this fork: current `config.json` rules
+do not represent every manual override and can replace those overrides.
 
 ```bash
 python3 scripts/sync_prices.py --config config.json --repo-root .
