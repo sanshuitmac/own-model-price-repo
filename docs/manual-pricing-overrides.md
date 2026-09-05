@@ -1,6 +1,6 @@
 # 手工价格覆盖维护记录
 
-最后更新：2026-08-25
+最后更新：2026-09-05
 
 ## 仓库与运行方式
 
@@ -21,6 +21,7 @@
 | `codex-auto-review` | $0.20 | $0.02 | 未单独计费 | $1.20 | 按 Sub2API v0.1.170 / PR #5145 的定价 |
 | `gpt-5.6-luna` | $1.00 | $0.10 | 免费 | $6.00 | 保留 OpenAI 降价前的价格 |
 | `gpt-5.6-sol` | $4.00 | $0.50 | $5.00 | $25.00 | 2026-08-25 自定义缓存读取及输出价格 |
+| `gpt-6-astra` | $10.00 | $1.00 | $12.50 | $50.00 | 2026-09-05 手工新增；长上下文为输入 $20、缓存读取 $2、缓存写入 $25、输出 $75 |
 
 前两项覆盖记录在提交 [`52baad6`](https://github.com/sanshuitmac/own-model-price-repo/commit/52baad6)，其中 `codex-auto-review` 的依据是 [Sub2API PR #5145](https://github.com/Wei-Shaw/sub2api/pull/5145)。
 
